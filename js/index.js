@@ -18,6 +18,8 @@ const body = document.querySelector("body");
 
 const image = document.querySelector(".intro img");
 
+nav.style.zIndex = "50";
+
 //event listeners
 window.addEventListener("mouseup", funBus);
 window.addEventListener("resize", resize);
@@ -47,6 +49,7 @@ function resize() {
 function copy() {
   alert("copied text");
 }
+
 function shrink(e) {
   image.style.transform = "scale(1,1)";
   image.style.zIndex = "-1";
@@ -55,6 +58,7 @@ function shrink(e) {
 function getBig() {
   image.style.transform = "scale(1.1,1.1)";
 }
+
 function dbl(e) {
   console.log(e.target);
   console.log(`You double clicked on an ${e.target}`);
