@@ -15,7 +15,7 @@ const navLink = document.querySelectorAll(".nav a");
 const logo = document.querySelector(".logo-heading");
 const nav = document.querySelector(".main-navigation");
 const body = document.querySelector("body");
-
+const intro = document.querySelector(".intro");
 const image = document.querySelector(".intro img");
 
 nav.style.zIndex = "50";
@@ -28,17 +28,41 @@ logo.addEventListener("click", turn);
 logo.addEventListener("transitionstart", whoa);
 logo.addEventListener("transitionend", funBus);
 
+intro.addEventListener("click", toggleShow);
+
 image.addEventListener("contextmenu", getBig);
 image.addEventListener("click", shrink);
 
 navLink.forEach(el => el.addEventListener("mouseover", scaleUp));
-
 navLink.forEach(el => el.addEventListener("mouseout", scaleDown));
+navLink.forEach(el => el.addEventListener("click", preventDefault));
 
 document.addEventListener("keydown", darkMode);
 document.addEventListener("dblclick", dbl);
 
+TweenMax.staggerFrom(
+  ".nav-link",
+  3,
+  { opacity: 0, rotation: 360, delay: 0.5 },
+  0.5
+);
+
 //Functions
+
+let showIntro = true;
+function toggleShow() {
+  if (showIntro) {
+    intro.textContent = "where did the intro go?";
+    showIntro = false;
+  } else {
+    intro.textContent = "no, really...where did it go?";
+    showIntro = true;
+  }
+}
+
+function preventDefault(e) {
+  e.preventDefault();
+}
 
 function resize() {
   logo.textContent = `Window size: ${window.innerHeight} x ${
@@ -53,10 +77,12 @@ function copy() {
 function shrink(e) {
   image.style.transform = "scale(1,1)";
   image.style.zIndex = "-1";
+  e.stopPropagation();
 }
 
-function getBig() {
+function getBig(e) {
   image.style.transform = "scale(1.1,1.1)";
+  e.stopPropagation();
 }
 
 function dbl(e) {
